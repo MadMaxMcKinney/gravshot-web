@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from 'react';
+
 interface SyntaxHighlighterProps {
   language: string;
   theme: string;
@@ -7,16 +11,16 @@ interface SyntaxHighlighterProps {
 
 const getLanguageClass = (language: string) => {
   const languageMap: { [key: string]: string } = {
-    javascript: 'language-javascript',
-    typescript: 'language-typescript', 
-    python: 'language-python',
-    java: 'language-java',
-    cpp: 'language-cpp',
-    css: 'language-css',
-    html: 'language-html',
-    json: 'language-json'
+    javascript: 'javascript',
+    typescript: 'typescript', 
+    python: 'python',
+    java: 'java',
+    cpp: 'cpp',
+    css: 'css',
+    html: 'markup',
+    json: 'json'
   };
-  return languageMap[language] || 'language-javascript';
+  return languageMap[language] || 'javascript';
 };
 
 const getThemeStyles = (theme: string) => {
@@ -49,38 +53,53 @@ const getThemeStyles = (theme: string) => {
   return themes[theme] || themes['vs-dark'];
 };
 
-const highlightSyntax = (code: string, language: string) => {
-  const keywords: { [key: string]: string[] } = {
-    javascript: ['function', 'const', 'let', 'var', 'if', 'else', 'for', 'while', 'return', 'console', 'log'],
-    typescript: ['function', 'const', 'let', 'var', 'if', 'else', 'for', 'while', 'return', 'interface', 'type', 'export'],
-    python: ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'class', 'print'],
-    java: ['public', 'private', 'class', 'interface', 'if', 'else', 'for', 'while', 'return', 'static', 'void'],
-    cpp: ['#include', 'int', 'void', 'if', 'else', 'for', 'while', 'return', 'cout', 'cin', 'std'],
-    css: ['color', 'background', 'margin', 'padding', 'border', 'width', 'height', 'display', 'flex'],
-    html: ['div', 'span', 'p', 'h1', 'h2', 'h3', 'a', 'img', 'ul', 'li', 'class', 'id'],
-    json: []
-  };
-
-  const languageKeywords = keywords[language] || keywords.javascript;
-  let highlightedCode = code;
-
-  languageKeywords.forEach(keyword => {
-    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-    highlightedCode = highlightedCode.replace(regex, `<span class="keyword">${keyword}</span>`);
-  });
-
-  highlightedCode = highlightedCode.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
-  highlightedCode = highlightedCode.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
-  highlightedCode = highlightedCode.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
-  highlightedCode = highlightedCode.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
-  highlightedCode = highlightedCode.replace(/\b\d+\b/g, '<span class="number">$&</span>');
-
-  return highlightedCode;
-};
-
 export default function SyntaxHighlighter({ language, theme, code, padding = 20 }: SyntaxHighlighterProps) {
+  const [highlightedCode, setHighlightedCode] = useState('');
   const themeStyles = getThemeStyles(theme);
-  const highlightedCode = highlightSyntax(code, language);
+  const prismLanguage = getLanguageClass(language);
+
+  useEffect(() => {
+    const loadPrism = async () => {
+      try {
+        // Dynamic import to avoid SSR issues
+        const Prism = (await import('prismjs')).default;
+        
+        // Load required languages
+        await Promise.all([
+          import('prismjs/components/prism-javascript'),
+          import('prismjs/components/prism-typescript'),
+          import('prismjs/components/prism-python'),
+          import('prismjs/components/prism-java'),
+          import('prismjs/components/prism-css'),
+          import('prismjs/components/prism-markup'),
+          import('prismjs/components/prism-json'),
+        ]);
+
+        // Load C++ separately as it might cause issues
+        if (prismLanguage === 'cpp') {
+          try {
+            await import('prismjs/components/prism-cpp');
+          } catch (err) {
+            // Fallback to plain text for cpp if it fails
+            setHighlightedCode(code);
+            return;
+          }
+        }
+
+        if (Prism.languages[prismLanguage]) {
+          const highlighted = Prism.highlight(code, Prism.languages[prismLanguage], prismLanguage);
+          setHighlightedCode(highlighted);
+        } else {
+          setHighlightedCode(code);
+        }
+      } catch (error) {
+        // Fallback to plain text if highlighting fails
+        setHighlightedCode(code);
+      }
+    };
+
+    loadPrism();
+  }, [code, prismLanguage]);
 
   return (
     <div style={{ padding }}>
@@ -91,20 +110,32 @@ export default function SyntaxHighlighter({ language, theme, code, padding = 20 
           line-height: 1.5;
           white-space: pre-wrap;
           overflow-x: auto;
+          margin: 0;
         }
-        .syntax-highlighter :global(.keyword) {
+        
+        /* Custom theme colors */
+        .syntax-highlighter :global(.token.keyword) {
           color: ${theme === 'vs-light' || theme === 'github-light' ? '#0000ff' : '#569cd6'};
           font-weight: bold;
         }
-        .syntax-highlighter :global(.string) {
+        .syntax-highlighter :global(.token.string) {
           color: ${theme === 'vs-light' || theme === 'github-light' ? '#a31515' : '#ce9178'};
         }
-        .syntax-highlighter :global(.comment) {
+        .syntax-highlighter :global(.token.comment) {
           color: ${theme === 'vs-light' || theme === 'github-light' ? '#008000' : '#6a9955'};
           font-style: italic;
         }
-        .syntax-highlighter :global(.number) {
+        .syntax-highlighter :global(.token.number) {
           color: ${theme === 'vs-light' || theme === 'github-light' ? '#098658' : '#b5cea8'};
+        }
+        .syntax-highlighter :global(.token.function) {
+          color: ${theme === 'vs-light' || theme === 'github-light' ? '#795e26' : '#dcdcaa'};
+        }
+        .syntax-highlighter :global(.token.operator) {
+          color: ${theme === 'vs-light' || theme === 'github-light' ? '#000000' : '#d4d4d4'};
+        }
+        .syntax-highlighter :global(.token.punctuation) {
+          color: ${theme === 'vs-light' || theme === 'github-light' ? '#000000' : '#d4d4d4'};
         }
       `}</style>
       <pre 

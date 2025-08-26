@@ -34,6 +34,7 @@ export default function CodePreview({ config }: CodePreviewProps) {
         <CodeWindow
           fileName={config.fileName}
           windowWidth={config.windowWidth}
+          theme={config.theme}
         >
           <SyntaxHighlighter
             language={config.language}
