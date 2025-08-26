@@ -22,10 +22,21 @@ export default function Home() {
 console.log(fibonacci(10));`
   });
 
+  const [showDragControls, setShowDragControls] = useState(false);
+
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar config={config} setConfig={setConfig} />
-      <CodePreview config={config} />
+      <Sidebar 
+        config={config} 
+        setConfig={setConfig}
+        showDragControls={showDragControls}
+        setShowDragControls={setShowDragControls}
+      />
+      <CodePreview 
+        config={config} 
+        setConfig={setConfig}
+        showDragControls={showDragControls}
+      />
     </div>
   );
 }

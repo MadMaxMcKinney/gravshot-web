@@ -2,7 +2,6 @@ import { Upload } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
@@ -25,6 +24,8 @@ interface SidebarProps {
     code: string;
   };
   setConfig: (config: any) => void;
+  showDragControls: boolean;
+  setShowDragControls: (show: boolean) => void;
 }
 
 const languages = [
@@ -38,7 +39,7 @@ const languages = [
   { value: "json", label: "JSON" }
 ];
 
-export default function Sidebar({ config, setConfig }: SidebarProps) {
+export default function Sidebar({ config, setConfig, showDragControls, setShowDragControls }: SidebarProps) {
   const themes = getThemeList();
   
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,40 +128,20 @@ export default function Sidebar({ config, setConfig }: SidebarProps) {
           />
         </div>
 
-        <div className="space-y-3">
-          <Label>Window Width: {config.windowWidth}px</Label>
-          <Slider
-            value={[config.windowWidth]}
-            onValueChange={(value) => setConfig({ ...config, windowWidth: value[0] })}
-            max={800}
-            min={300}
-            step={10}
-            className="w-full"
-          />
-        </div>
-
-        <div className="space-y-3">
-          <Label>Window Padding: {config.padding}px</Label>
-          <Slider
-            value={[config.padding]}
-            onValueChange={(value) => setConfig({ ...config, padding: value[0] })}
-            max={50}
-            min={10}
-            step={1}
-            className="w-full"
-          />
-        </div>
-
-        <div className="space-y-3">
-          <Label>Background Padding: {config.backgroundPadding}px</Label>
-          <Slider
-            value={[config.backgroundPadding]}
-            onValueChange={(value) => setConfig({ ...config, backgroundPadding: value[0] })}
-            max={100}
-            min={20}
-            step={5}
-            className="w-full"
-          />
+        <div className="space-y-2">
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="showDragControls"
+              checked={showDragControls}
+              onChange={(e) => setShowDragControls(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            <Label htmlFor="showDragControls">Show Drag Controls</Label>
+          </div>
+          <p className="text-xs text-gray-500">
+            Toggle to show/hide drag handles for adjusting window size and padding
+          </p>
         </div>
 
         <div className="space-y-2">
