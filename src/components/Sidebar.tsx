@@ -1,0 +1,225 @@
+import { Upload } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface SidebarProps {
+  config: {
+    language: string;
+    theme: string;
+    padding: number;
+    windowWidth: number;
+    backgroundPadding: number;
+    backgroundColor: string;
+    backgroundImage: string | null;
+    fileName: string;
+    code: string;
+  };
+  setConfig: (config: any) => void;
+}
+
+const languages = [
+  { value: "javascript", label: "JavaScript" },
+  { value: "typescript", label: "TypeScript" },
+  { value: "python", label: "Python" },
+  { value: "java", label: "Java" },
+  { value: "cpp", label: "C++" },
+  { value: "css", label: "CSS" },
+  { value: "html", label: "HTML" },
+  { value: "json", label: "JSON" }
+];
+
+const themes = [
+  { value: "vs-dark", label: "VS Dark" },
+  { value: "vs-light", label: "VS Light" },
+  { value: "github-dark", label: "GitHub Dark" },
+  { value: "github-light", label: "GitHub Light" },
+  { value: "monokai", label: "Monokai" },
+  { value: "dracula", label: "Dracula" }
+];
+
+export default function Sidebar({ config, setConfig }: SidebarProps) {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setConfig({
+          ...config,
+          backgroundImage: e.target?.result as string
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const clearBackgroundImage = () => {
+    setConfig({
+      ...config,
+      backgroundImage: null
+    });
+  };
+
+  return (
+    <div className="w-[400px] bg-white border-r border-gray-200 p-6 overflow-y-auto">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Code Screenshot</h1>
+      
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <Label>Language</Label>
+          <Select
+            value={config.language}
+            onValueChange={(value) => setConfig({ ...config, language: value })}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select language" />
+            </SelectTrigger>
+            <SelectContent>
+              {languages.map((lang) => (
+                <SelectItem key={lang.value} value={lang.value}>
+                  {lang.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Theme</Label>
+          <Select
+            value={config.theme}
+            onValueChange={(value) => setConfig({ ...config, theme: value })}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {themes.map((theme) => (
+                <SelectItem key={theme.value} value={theme.value}>
+                  {theme.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="fileName">File Name</Label>
+          <Input
+            id="fileName"
+            type="text"
+            value={config.fileName}
+            onChange={(e) => setConfig({ ...config, fileName: e.target.value })}
+            placeholder="example.js"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="code">Code</Label>
+          <textarea
+            id="code"
+            value={config.code}
+            onChange={(e) => setConfig({ ...config, code: e.target.value })}
+            className="w-full h-32 px-3 py-2 border border-input rounded-md bg-background text-sm font-mono resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            placeholder="Enter your code here..."
+          />
+        </div>
+
+        <div className="space-y-3">
+          <Label>Window Width: {config.windowWidth}px</Label>
+          <Slider
+            value={[config.windowWidth]}
+            onValueChange={(value) => setConfig({ ...config, windowWidth: value[0] })}
+            max={800}
+            min={300}
+            step={10}
+            className="w-full"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <Label>Window Padding: {config.padding}px</Label>
+          <Slider
+            value={[config.padding]}
+            onValueChange={(value) => setConfig({ ...config, padding: value[0] })}
+            max={50}
+            min={10}
+            step={1}
+            className="w-full"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <Label>Background Padding: {config.backgroundPadding}px</Label>
+          <Slider
+            value={[config.backgroundPadding]}
+            onValueChange={(value) => setConfig({ ...config, backgroundPadding: value[0] })}
+            max={100}
+            min={20}
+            step={5}
+            className="w-full"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label>Background Color</Label>
+          <div className="flex items-center gap-3">
+            <input
+              type="color"
+              value={config.backgroundColor}
+              onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })}
+              className="w-12 h-10 rounded border border-input cursor-pointer"
+            />
+            <Input
+              type="text"
+              value={config.backgroundColor}
+              onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })}
+              className="flex-1 font-mono text-sm"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Background Image</Label>
+          <div className="space-y-3">
+            <label className="flex items-center justify-center w-full h-32 border-2 border-dashed border-input rounded-md cursor-pointer hover:border-ring transition-colors">
+              <div className="text-center">
+                <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                <span className="mt-2 block text-sm text-muted-foreground">
+                  Click to upload image
+                </span>
+              </div>
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </label>
+            {config.backgroundImage && (
+              <div className="flex items-center justify-between p-2 bg-muted rounded">
+                <span className="text-sm text-muted-foreground">Image uploaded</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearBackgroundImage}
+                  className="text-destructive hover:text-destructive"
+                >
+                  Remove
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
