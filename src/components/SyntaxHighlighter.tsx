@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { getTheme } from '@/lib/themes';
 
 interface SyntaxHighlighterProps {
   language: string;
@@ -23,39 +24,9 @@ const getLanguageClass = (language: string) => {
   return languageMap[language] || 'javascript';
 };
 
-const getThemeStyles = (theme: string) => {
-  const themes: { [key: string]: React.CSSProperties } = {
-    'vs-dark': {
-      backgroundColor: '#1e1e1e',
-      color: '#d4d4d4'
-    },
-    'vs-light': {
-      backgroundColor: '#ffffff',
-      color: '#000000'
-    },
-    'github-dark': {
-      backgroundColor: '#0d1117',
-      color: '#c9d1d9'
-    },
-    'github-light': {
-      backgroundColor: '#ffffff',
-      color: '#24292f'
-    },
-    'monokai': {
-      backgroundColor: '#272822',
-      color: '#f8f8f2'
-    },
-    'dracula': {
-      backgroundColor: '#282a36',
-      color: '#f8f8f2'
-    }
-  };
-  return themes[theme] || themes['vs-dark'];
-};
-
 export default function SyntaxHighlighter({ language, theme, code, padding = 20 }: SyntaxHighlighterProps) {
   const [highlightedCode, setHighlightedCode] = useState('');
-  const themeStyles = getThemeStyles(theme);
+  const themeConfig = getTheme(theme);
   const prismLanguage = getLanguageClass(language);
 
   useEffect(() => {
@@ -115,32 +86,35 @@ export default function SyntaxHighlighter({ language, theme, code, padding = 20 
         
         /* Custom theme colors */
         .syntax-highlighter :global(.token.keyword) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#0000ff' : '#569cd6'};
+          color: ${themeConfig.syntax.tokens.keyword};
           font-weight: bold;
         }
         .syntax-highlighter :global(.token.string) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#a31515' : '#ce9178'};
+          color: ${themeConfig.syntax.tokens.string};
         }
         .syntax-highlighter :global(.token.comment) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#008000' : '#6a9955'};
+          color: ${themeConfig.syntax.tokens.comment};
           font-style: italic;
         }
         .syntax-highlighter :global(.token.number) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#098658' : '#b5cea8'};
+          color: ${themeConfig.syntax.tokens.number};
         }
         .syntax-highlighter :global(.token.function) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#795e26' : '#dcdcaa'};
+          color: ${themeConfig.syntax.tokens.function};
         }
         .syntax-highlighter :global(.token.operator) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#000000' : '#d4d4d4'};
+          color: ${themeConfig.syntax.tokens.operator};
         }
         .syntax-highlighter :global(.token.punctuation) {
-          color: ${theme === 'vs-light' || theme === 'github-light' ? '#000000' : '#d4d4d4'};
+          color: ${themeConfig.syntax.tokens.punctuation};
         }
       `}</style>
       <pre 
         className="syntax-highlighter"
-        style={themeStyles}
+        style={{
+          backgroundColor: themeConfig.syntax.backgroundColor,
+          color: themeConfig.syntax.textColor
+        }}
         dangerouslySetInnerHTML={{ __html: highlightedCode }}
       />
     </div>

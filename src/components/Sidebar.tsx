@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getThemeList } from "@/lib/themes";
 
 interface SidebarProps {
   config: {
@@ -37,16 +38,9 @@ const languages = [
   { value: "json", label: "JSON" }
 ];
 
-const themes = [
-  { value: "vs-dark", label: "VS Dark" },
-  { value: "vs-light", label: "VS Light" },
-  { value: "github-dark", label: "GitHub Dark" },
-  { value: "github-light", label: "GitHub Light" },
-  { value: "monokai", label: "Monokai" },
-  { value: "dracula", label: "Dracula" }
-];
-
 export default function Sidebar({ config, setConfig }: SidebarProps) {
+  const themes = getThemeList();
+  
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
