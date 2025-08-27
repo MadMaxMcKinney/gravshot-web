@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { languages } from "@/lib/languages";
 import { getThemeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
 import { Code } from "lucide-react";
@@ -52,6 +53,21 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             <div className="space-y-2">
                                 <h4 className="leading-none font-medium">Code settings</h4>
                                 <p className="text-muted-foreground text-sm">Set the language and syntax highlighting for the code block.</p>
+                            </div>
+                            <div className="grid grid-cols-3 items-center gap-4">
+                                <Label>Language</Label>
+                                <Select value={config.language} onValueChange={(value) => setConfig({ ...config, language: value })}>
+                                    <SelectTrigger className="col-span-2 w-full">
+                                        <SelectValue placeholder="Select language" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {languages.map((language) => (
+                                            <SelectItem key={language.label} value={language.value}>
+                                                {language.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                                 <Label>Syntax theme</Label>
