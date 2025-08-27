@@ -7,7 +7,10 @@ import { languages } from "@/lib/languages";
 import { getThemeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
 import { Switch } from "@/components/ui/switch";
-import { Code, Eye } from "lucide-react";
+import { Code, Eye, Image } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HexColorPicker } from "react-colorful";
+import ColorPicker from "@/components/ColorPicker";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -90,6 +93,38 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                 </Popover>
 
                 {/* Background settings */}
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button size="icon" variant="outline">
+                            <Image />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">
+                        <div className="grid gap-4">
+                            <div className="space-y-2">
+                                <h4 className="leading-none font-medium">Background settings</h4>
+                                <p className="text-muted-foreground text-sm">Set the background color or image.</p>
+                            </div>
+                            <Tabs defaultValue="account">
+                                <TabsList>
+                                    <TabsTrigger value="color">Color</TabsTrigger>
+                                    <TabsTrigger value="image">Image</TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="color">
+                                    <div className="grid mt-1 grid-cols-3 items-center gap-4">
+                                        <Label htmlFor="bgColor">Background color</Label>
+                                        <div className="flex justify-end gap-1 col-span-2">
+                                            <ColorPicker color={config.backgroundColor} setConfig={setConfig} config={config} />
+                                            <Input id="bgColor" value={config.backgroundColor} onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })} className="w-28" />
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="image">Change your password here.</TabsContent>
+                            </Tabs>
+                        </div>
+                    </PopoverContent>
+                </Popover>
+
                 {/* Editor settings */}
                 <Popover>
                     <PopoverTrigger asChild>
