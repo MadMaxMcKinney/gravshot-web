@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { languages } from "@/lib/languages";
 import { getThemeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
-import { Code } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Code, Eye } from "lucide-react";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -55,12 +56,12 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                 <p className="text-muted-foreground text-sm">Set the language and syntax highlighting for the code block.</p>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
-                                <Label>Language</Label>
+                                <Label htmlFor="language">Language</Label>
                                 <Select value={config.language} onValueChange={(value) => setConfig({ ...config, language: value })}>
                                     <SelectTrigger className="col-span-2 w-full">
                                         <SelectValue placeholder="Select language" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent id="language">
                                         {languages.map((language) => (
                                             <SelectItem key={language.label} value={language.value}>
                                                 {language.label}
@@ -70,12 +71,12 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                 </Select>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
-                                <Label>Syntax theme</Label>
+                                <Label htmlFor="theme">Syntax theme</Label>
                                 <Select value={config.theme} onValueChange={(value) => setConfig({ ...config, theme: value })}>
                                     <SelectTrigger className="col-span-2 w-full">
                                         <SelectValue placeholder="Select theme" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent id="theme">
                                         {themes.map((theme) => (
                                             <SelectItem key={theme.label} value={theme.value}>
                                                 {theme.label}
@@ -89,6 +90,30 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                 </Popover>
 
                 {/* Background settings */}
+                {/* Editor settings */}
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button size="icon" variant="outline">
+                            <Eye />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-60">
+                        <div className="grid gap-4">
+                            <div className="space-y-2">
+                                <h4 className="leading-none font-medium">Editor settings</h4>
+                                <p className="text-muted-foreground text-sm">Configure your editor experience.</p>
+                            </div>
+                            <div className="grid grid-cols-3 items-center gap-4">
+                                <Label htmlFor="showDragHandles" className="col-span-2">
+                                    Show drag handles
+                                </Label>
+                                <div className="col-span-1 flex justify-end">
+                                    <Switch id="showDragHandles" checked={config.showDragControls} onCheckedChange={(checked) => setConfig({ ...config, showDragControls: checked })} />
+                                </div>
+                            </div>
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </div>
         </footer>
     );

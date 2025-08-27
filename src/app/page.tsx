@@ -17,13 +17,13 @@ export default function Home() {
         backgroundColor: "#1e293b",
         backgroundImage: null,
         fileName: "example.js",
+        showDragControls: true,
         code: `function fibonacci(n) {
   if (n <= 1) return n;
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 console.log(fibonacci(10));`,
-        showDragControls: true,
     });
 
     return (
