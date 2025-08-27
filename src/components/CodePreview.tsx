@@ -1,5 +1,5 @@
 import CodeWindow from "@/components/CodeWindow";
-import SyntaxHighlighter from "@/components/SyntaxHighlighter";
+import EditableCodeEditor from "@/components/EditableCodeEditor";
 import DragHandle from "@/components/DragHandle";
 import { ScreenshotConfig } from "@/types/screenshot";
 
@@ -42,7 +42,13 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
                     </>
                 )}
                 <CodeWindow fileName={config.fileName} windowWidth={config.windowWidth} theme={config.theme}>
-                    <SyntaxHighlighter language={config.language} theme={config.theme} code={config.code} padding={config.padding} />
+                    <EditableCodeEditor 
+                        language={config.language} 
+                        theme={config.theme} 
+                        code={config.code} 
+                        padding={config.padding}
+                        onChange={(newCode) => setConfig({ ...config, code: newCode })}
+                    />
                 </CodeWindow>
             </div>
         </div>

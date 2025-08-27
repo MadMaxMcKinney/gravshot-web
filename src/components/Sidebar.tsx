@@ -91,16 +91,6 @@ export default function Sidebar({ config, setConfig }: SidebarProps) {
                     <Input id="fileName" type="text" value={config.fileName} onChange={(e) => setConfig({ ...config, fileName: e.target.value })} placeholder="example.js" />
                 </div>
 
-                <div className="space-y-2">
-                    <Label htmlFor="code">Code</Label>
-                    <textarea
-                        id="code"
-                        value={config.code}
-                        onChange={(e) => setConfig({ ...config, code: e.target.value })}
-                        className="w-full h-32 px-3 py-2 border border-input rounded-md bg-background text-sm font-mono resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        placeholder="Enter your code here..."
-                    />
-                </div>
 
                 <div className="space-y-2">
                     <Label>Background Color</Label>
