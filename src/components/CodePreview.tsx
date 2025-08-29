@@ -29,7 +29,7 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
                             onChange={(value) => setConfig({ ...config, backgroundPadding: value })}
                             min={20}
                             max={100}
-                            className="absolute -top-12 left-1/2 transform -translate-x-1/2"
+                            className="absolute -top-6 left-1/2 transform -translate-x-1/2"
                         />
                         <DragHandle
                             type="windowWidth"
@@ -37,18 +37,12 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
                             onChange={(value) => setConfig({ ...config, windowWidth: value })}
                             min={300}
                             max={800}
-                            className="absolute -right-12 top-1/2 transform -translate-y-1/2"
+                            className="absolute -right-6 top-1/2 transform -translate-y-1/2"
                         />
                     </>
                 )}
                 <CodeWindow fileName={config.fileName} windowWidth={config.windowWidth} theme={config.theme}>
-                    <EditableCodeEditor 
-                        language={config.language} 
-                        theme={config.theme} 
-                        code={config.code} 
-                        padding={config.padding}
-                        onChange={(newCode) => setConfig({ ...config, code: newCode })}
-                    />
+                    <EditableCodeEditor language={config.language} theme={config.theme} code={config.code} padding={config.padding} onChange={(newCode) => setConfig({ ...config, code: newCode })} />
                 </CodeWindow>
             </div>
         </div>

@@ -28,7 +28,7 @@ console.log(fibonacci(10));`,
 
     return (
         <div className="flex h-screen bg-gray-100">
-            <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-100% mask-radial-at-center mask-cover" />
+            <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-90% mask-radial-at-center mask-cover" />
             <Toolbar config={config} setConfig={setConfig} />
             <CodePreview config={config} setConfig={setConfig} />
         </div>
