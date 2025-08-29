@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "@/components/Sidebar";
 import CodePreview from "@/components/CodePreview";
 import { ScreenshotConfig } from "@/types/screenshot";
 import Toolbar from "@/components/Toolbar";
 import GridBackground from "@/components/GridBackground";
+import Titlebar from "@/components/Titlebar";
 
 export default function Home() {
     const [config, setConfig] = useState<ScreenshotConfig>({
@@ -31,6 +31,7 @@ console.log(fibonacci(10));`,
             <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-90% mask-radial-at-center mask-cover" />
             <Toolbar config={config} setConfig={setConfig} />
             <CodePreview config={config} setConfig={setConfig} />
+            <Titlebar />
         </div>
     );
 }

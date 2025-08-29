@@ -11,6 +11,7 @@ import { Code, Eye, Image, Share } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorPicker from "@/components/ColorPicker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { HellishCreativeAd } from "@/components/HellishCreativeAd";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -42,8 +43,8 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
     };
 
     return (
-        <footer className="fixed bottom-12 left-0 right-0 flex justify-center">
-            <div className="rounded-xl shadow-lg px-3 py-3 bg-background border border-border flex gap-4">
+        <footer className="fixed bottom-4 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">
+            <div className="rounded-xl shadow-lg px-3 py-3 bg-background/80 border border-border flex gap-4">
                 <Input type="text" placeholder="file_name.js" onChange={(e) => setConfig({ ...config, fileName: e.target.value })} className="max-w-40" />
                 <div className="flex gap-2">
                     {/* Code settings */}
@@ -119,9 +120,10 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                     <TabsList>
                                         <TabsTrigger value="color">Color</TabsTrigger>
                                         <TabsTrigger value="image">Image</TabsTrigger>
+                                        <TabsTrigger value="transparent">Transparent</TabsTrigger>
                                     </TabsList>
                                     <TabsContent value="color">
-                                        <div className="grid mt-1 grid-cols-3 items-center gap-4">
+                                        <div className="grid mt-3 grid-cols-3 items-center gap-4">
                                             <Label htmlFor="bgColor">Background color</Label>
                                             <div className="flex justify-end gap-1 col-span-2">
                                                 <ColorPicker color={config.backgroundColor} setConfig={setConfig} config={config} />
@@ -168,6 +170,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                     Export image <Share />
                 </Button>
             </div>
+            <HellishCreativeAd className="opacity-30 w-[230px]" />
         </footer>
     );
 }
