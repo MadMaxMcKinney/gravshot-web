@@ -6,6 +6,7 @@ import { ScreenshotConfig } from "@/types/screenshot";
 import Toolbar from "@/components/Toolbar";
 import GridBackground from "@/components/GridBackground";
 import Titlebar from "@/components/Titlebar";
+import { HellishCreativeAd } from "@/components/HellishCreativeAd";
 
 export default function Home() {
     const [config, setConfig] = useState<ScreenshotConfig>({
@@ -32,6 +33,7 @@ console.log(fibonacci(10));`,
             <Toolbar config={config} setConfig={setConfig} />
             <CodePreview config={config} setConfig={setConfig} />
             <Titlebar />
+            <HellishCreativeAd className="w-[230px] absolute top-12 right-12" />
         </div>
     );
 }

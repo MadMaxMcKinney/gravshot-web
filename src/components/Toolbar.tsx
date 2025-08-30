@@ -43,7 +43,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
     };
 
     return (
-        <footer className="fixed bottom-4 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">
+        <footer className="fixed bottom-12 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">
             <div className="rounded-xl shadow-lg px-3 py-3 bg-background/80 border border-border flex gap-4">
                 <Input type="text" placeholder="file_name.js" onChange={(e) => setConfig({ ...config, fileName: e.target.value })} className="max-w-40" />
                 <div className="flex gap-2">
@@ -98,7 +98,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             </div>
                         </PopoverContent>
                     </Popover>
-                    {/* Background settings */}
+                    {/* Appearance settings */}
                     <Popover>
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -108,13 +108,13 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                     </Button>
                                 </PopoverTrigger>
                             </TooltipTrigger>
-                            <TooltipContent>Background</TooltipContent>
+                            <TooltipContent>Appearance</TooltipContent>
                         </Tooltip>
-                        <PopoverContent className="w-80">
+                        <PopoverContent className="w-120">
                             <div className="grid gap-4">
                                 <div className="space-y-2">
-                                    <h4 className="leading-none font-medium">Background</h4>
-                                    <p className="text-muted-foreground text-sm">Set the background color or image.</p>
+                                    <h4 className="leading-none font-medium">Appearance</h4>
+                                    <p className="text-muted-foreground text-sm">Customize the background, colors, and more.</p>
                                 </div>
                                 <Tabs defaultValue="account">
                                     <TabsList>
@@ -123,10 +123,10 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                         <TabsTrigger value="transparent">Transparent</TabsTrigger>
                                     </TabsList>
                                     <TabsContent value="color">
-                                        <div className="grid mt-3 grid-cols-3 items-center gap-4">
+                                        <div className="grid mt-3 grid-cols-2 items-center gap-4">
                                             <Label htmlFor="bgColor">Background color</Label>
-                                            <div className="flex justify-end gap-1 col-span-2">
-                                                <ColorPicker color={config.backgroundColor} setConfig={setConfig} config={config} />
+                                            <div className="flex justify-end gap-1">
+                                                <ColorPicker className="flex-1" color={config.backgroundColor} setConfig={setConfig} config={config} />
                                                 <Input id="bgColor" value={config.backgroundColor} onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })} className="w-28" />
                                             </div>
                                         </div>
@@ -170,7 +170,6 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                     Export image <Share />
                 </Button>
             </div>
-            <HellishCreativeAd className="opacity-30 w-[230px]" />
         </footer>
     );
 }
