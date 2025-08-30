@@ -11,7 +11,7 @@ import { Code, Cog, Eye, Image, Share } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorPicker from "@/components/ColorPicker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { HellishCreativeAd } from "@/components/HellishCreativeAd";
+import { Theme, ThemeId } from "@/types/theme";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -101,10 +101,10 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                     <h4 className="leading-none font-medium">Appearance</h4>
                                     <p className="text-muted-foreground text-sm">Customize the background, colors, and more.</p>
                                 </div>
-                                {/* Syntax */}
+                                {/* Theme */}
                                 <div className="grid grid-cols-2 items-center gap-4">
-                                    <Label htmlFor="theme">Syntax theme</Label>
-                                    <Select value={config.theme} onValueChange={(value) => setConfig({ ...config, theme: value })}>
+                                    <Label htmlFor="theme">Theme</Label>
+                                    <Select value={config.themeId} onValueChange={(value: ThemeId) => setConfig({ ...config, themeId: value })}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Select theme" />
                                         </SelectTrigger>
@@ -119,11 +119,14 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                 </div>
                                 {/* Background */}
                                 <Tabs defaultValue="color">
-                                    <TabsList>
-                                        <TabsTrigger value="color">Color</TabsTrigger>
-                                        <TabsTrigger value="image">Image</TabsTrigger>
-                                        <TabsTrigger value="transparent">Transparent</TabsTrigger>
-                                    </TabsList>
+                                    <div className="flex justify-between">
+                                        <Label htmlFor="backgroundTypes">Background</Label>
+                                        <TabsList id="backgroundTypes">
+                                            <TabsTrigger value="color">Color</TabsTrigger>
+                                            <TabsTrigger value="image">Image</TabsTrigger>
+                                            <TabsTrigger value="transparent">Transparent</TabsTrigger>
+                                        </TabsList>
+                                    </div>
                                     <TabsContent value="color">
                                         <div className="grid mt-2 grid-cols-2 items-center gap-4">
                                             <Label htmlFor="bgColor">Background color</Label>

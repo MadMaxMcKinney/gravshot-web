@@ -11,7 +11,7 @@ import { HellishCreativeAd } from "@/components/HellishCreativeAd";
 export default function Home() {
     const [config, setConfig] = useState<ScreenshotConfig>({
         language: "javascript",
-        theme: "vs-dark",
+        themeId: "vs-dark",
         padding: 16,
         windowWidth: 400,
         backgroundPadding: 40,

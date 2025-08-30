@@ -25,13 +25,12 @@ export interface WindowColors {
 export interface Theme {
     id: string;
     name: string;
-    syntax: {
-        backgroundColor: string;
-        textColor: string;
+    colors: {
+        background: string;
+        text: string;
         tokens: SyntaxColors;
     };
     window: WindowColors;
-    controlStyle?: ControlStyle;
 }
 
 export type ThemeId = "vs-dark" | "vs-light" | "github-dark" | "github-light" | "monokai" | "dracula";

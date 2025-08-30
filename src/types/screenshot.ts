@@ -1,12 +1,14 @@
+import { ThemeId } from "@/types/theme";
+
 export interface ScreenshotConfig {
-  language: string;
-  theme: string;
-  padding: number;
-  windowWidth: number;
-  backgroundPadding: number;
-  backgroundColor: string;
-  backgroundImage: string | null;
-  fileName: string;
-  code: string;
-  showDragControls: boolean;
+    language: string;
+    themeId: ThemeId;
+    padding: number;
+    windowWidth: number;
+    backgroundPadding: number;
+    backgroundColor: string;
+    backgroundImage: string | null;
+    fileName: string;
+    code: string;
+    showDragControls: boolean;
 }
