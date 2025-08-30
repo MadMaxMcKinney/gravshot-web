@@ -7,7 +7,7 @@ import { languages } from "@/lib/languages";
 import { getThemeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
 import { Switch } from "@/components/ui/switch";
-import { Code, Eye, Image, Share } from "lucide-react";
+import { Code, Cog, Eye, Image, Share } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorPicker from "@/components/ColorPicker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -63,7 +63,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             <div className="grid gap-4">
                                 <div className="space-y-2">
                                     <h4 className="leading-none font-medium">Code settings</h4>
-                                    <p className="text-muted-foreground text-sm">Set the language and syntax highlighting for the code block.</p>
+                                    <p className="text-muted-foreground text-sm">Adjust code settings used in the preview.</p>
                                 </div>
                                 <div className="grid grid-cols-3 items-center gap-4">
                                     <Label htmlFor="language">Language</Label>
@@ -75,21 +75,6 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                             {languages.map((language) => (
                                                 <SelectItem key={language.label} value={language.value}>
                                                     {language.label}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="grid grid-cols-3 items-center gap-4">
-                                    <Label htmlFor="theme">Syntax theme</Label>
-                                    <Select value={config.theme} onValueChange={(value) => setConfig({ ...config, theme: value })}>
-                                        <SelectTrigger className="col-span-2 w-full">
-                                            <SelectValue placeholder="Select theme" />
-                                        </SelectTrigger>
-                                        <SelectContent id="theme">
-                                            {themes.map((theme) => (
-                                                <SelectItem key={theme.label} value={theme.value}>
-                                                    {theme.label}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -110,20 +95,37 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             </TooltipTrigger>
                             <TooltipContent>Appearance</TooltipContent>
                         </Tooltip>
-                        <PopoverContent className="w-120">
+                        <PopoverContent className="w-100">
                             <div className="grid gap-4">
                                 <div className="space-y-2">
                                     <h4 className="leading-none font-medium">Appearance</h4>
                                     <p className="text-muted-foreground text-sm">Customize the background, colors, and more.</p>
                                 </div>
-                                <Tabs defaultValue="account">
+                                {/* Syntax */}
+                                <div className="grid grid-cols-2 items-center gap-4">
+                                    <Label htmlFor="theme">Syntax theme</Label>
+                                    <Select value={config.theme} onValueChange={(value) => setConfig({ ...config, theme: value })}>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select theme" />
+                                        </SelectTrigger>
+                                        <SelectContent id="theme">
+                                            {themes.map((theme) => (
+                                                <SelectItem key={theme.label} value={theme.value}>
+                                                    {theme.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                {/* Background */}
+                                <Tabs defaultValue="color">
                                     <TabsList>
                                         <TabsTrigger value="color">Color</TabsTrigger>
                                         <TabsTrigger value="image">Image</TabsTrigger>
                                         <TabsTrigger value="transparent">Transparent</TabsTrigger>
                                     </TabsList>
                                     <TabsContent value="color">
-                                        <div className="grid mt-3 grid-cols-2 items-center gap-4">
+                                        <div className="grid mt-2 grid-cols-2 items-center gap-4">
                                             <Label htmlFor="bgColor">Background color</Label>
                                             <div className="flex justify-end gap-1">
                                                 <ColorPicker className="flex-1" color={config.backgroundColor} setConfig={setConfig} config={config} />
@@ -142,7 +144,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             <TooltipTrigger asChild>
                                 <PopoverTrigger asChild>
                                     <Button size="icon" variant="outline">
-                                        <Eye />
+                                        <Cog />
                                     </Button>
                                 </PopoverTrigger>
                             </TooltipTrigger>
