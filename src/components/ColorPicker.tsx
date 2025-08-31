@@ -7,7 +7,7 @@ export default function ColorPicker({ color, setConfig, config, className }: { c
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button size="icon" variant="outline" style={{ backgroundColor: color }} className={className} />
+                <Button size="icon" variant="outline" style={{ backgroundColor: color }} className={className + " shadow-xs"} />
             </PopoverTrigger>
             <PopoverContent className="w-fit p-1 rounded-xl">
                 <HexColorPicker color={color} onChange={(color) => setConfig({ ...config, backgroundColor: color })} />

@@ -11,6 +11,7 @@ import { Code, Cog, Eye, Image, Share } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorPicker from "@/components/ColorPicker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import ThemePreview from "@/components/ThemePreview";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -101,21 +102,26 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                     <p className="text-muted-foreground text-sm">Customize the background, colors, and more.</p>
                                 </div>
                                 {/* Theme */}
-                                <div className="grid grid-cols-2 items-center gap-4">
+                                <div className="grid grid-cols-3 items-center gap-4">
                                     <Label htmlFor="theme">Theme</Label>
-                                    <Select value={config.theme.id} onValueChange={(themeId) => {
-                                        const selectedTheme = themes.find(theme => theme.id === themeId);
-                                        if (selectedTheme) {
-                                            setConfig({ ...config, theme: selectedTheme });
-                                        }
-                                    }}>
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Select theme" />
+                                    <Select
+                                        value={config.theme.id}
+                                        onValueChange={(themeId) => {
+                                            const selectedTheme = themes.find((theme) => theme.id === themeId);
+                                            if (selectedTheme) {
+                                                setConfig({ ...config, theme: selectedTheme });
+                                            }
+                                        }}
+                                    >
+                                        <SelectTrigger id="theme" className="w-full col-span-2 h-20">
+                                            <SelectValue placeholder="Select theme">
+                                                <ThemePreview theme={config.theme} isSelected={true} />
+                                            </SelectValue>
                                         </SelectTrigger>
-                                        <SelectContent id="theme">
+                                        <SelectContent>
                                             {themes.map((theme) => (
-                                                <SelectItem key={theme.name} value={theme.id}>
-                                                    {theme.name}
+                                                <SelectItem key={theme.name} value={theme.id} className="p-4 w-80">
+                                                    <ThemePreview theme={theme} isSelected={theme.id === config.theme.id} />
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
