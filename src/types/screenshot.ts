@@ -1,3 +1,4 @@
+import { CodeWindowControlsTheme } from "@/types/controls";
 import { CodeWindowTheme } from "@/types/theme";
 
 export type BackgroundType = "color" | "image" | "transparent";
@@ -5,6 +6,7 @@ export type BackgroundType = "color" | "image" | "transparent";
 export interface ScreenshotConfig {
     language: string;
     theme: CodeWindowTheme;
+    windowControlsTheme: CodeWindowControlsTheme;
     padding: number;
     windowWidth: number;
     backgroundPadding: number;

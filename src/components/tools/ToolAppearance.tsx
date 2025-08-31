@@ -3,7 +3,7 @@
 import ColorPicker from "@/components/ColorPicker";
 import ThemePreview from "@/components/ThemePreview";
 import { Input } from "@/components/ui/input";
-import { SelectItemRaw } from "@/components/ui/select";
+import { SelectItem, SelectItemRaw } from "@/components/ui/select";
 import { BackgroundType, ScreenshotConfig } from "@/types/screenshot";
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectContent } from "@/components/ui/select";
@@ -11,6 +11,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { CodeWindowTheme } from "@/types/theme";
 import { useEffect } from "react";
 import ImageUpload from "@/components/ImageUpload";
+import { windowControlsList } from "@/lib/windowControls";
+import CodeWindowControls from "@/components/CodeWindowControls";
 
 interface ToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
     config: ScreenshotConfig;
@@ -69,6 +71,30 @@ export function ToolAppearance({ config, setConfig, themes, ...props }: ToolbarP
                             <SelectItemRaw key={theme.name} value={theme.id} className="p-2">
                                 <ThemePreview theme={theme} isSelected={theme.id === config.theme.id} />
                             </SelectItemRaw>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+            {/* Window controls */}
+            <div className="grid grid-cols-2 items-center gap-4">
+                <Label htmlFor="windowControls">Window controls</Label>
+                <Select
+                    value={config.windowControlsTheme.id}
+                    onValueChange={(themeId) => {
+                        const selectedTheme = windowControlsList.find((theme) => theme.id === themeId);
+                        if (selectedTheme) {
+                            setConfig({ ...config, windowControlsTheme: selectedTheme });
+                        }
+                    }}
+                >
+                    <SelectTrigger id="windowControls" className="w-24 justify-self-end p-2 min-h-fit">
+                        <CodeWindowControls previewMode windowControlsTheme={config.windowControlsTheme} />
+                    </SelectTrigger>
+                    <SelectContent className="gap-2 w-24">
+                        {windowControlsList.map((windowControlsTheme) => (
+                            <SelectItem key={windowControlsTheme.name} value={windowControlsTheme.id} className="p-2">
+                                <CodeWindowControls previewMode windowControlsTheme={windowControlsTheme} />
+                            </SelectItem>
                         ))}
                     </SelectContent>
                 </Select>

@@ -1,9 +1,8 @@
 export interface CodeWindowControlsTheme {
-    id: CodeWindowControlsThemeId;
-    colors: [string, string, string];
-    border: string;
-    borderRadius: string;
+    id: string;
+    name: string;
     gap: string;
+    colors: [string, string, string];
+    borders?: [string, string, string];
+    borderRadii: [string, string, string];
 }
-
-export type CodeWindowControlsThemeId = "macos" | "neutral" | "none";

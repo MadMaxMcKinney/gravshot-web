@@ -1,3 +1,5 @@
+import CodeWindowControls from "@/components/CodeWindowControls";
+import { CodeWindowControlsTheme } from "@/types/controls";
 import { CodeWindowTheme } from "@/types/theme";
 
 interface CodeWindowProps {
@@ -5,9 +7,10 @@ interface CodeWindowProps {
     children: React.ReactNode;
     windowWidth: number;
     theme: CodeWindowTheme;
+    windowControlsTheme: CodeWindowControlsTheme;
 }
 
-export default function CodeWindow({ fileName, children, windowWidth, theme }: CodeWindowProps) {
+export default function CodeWindow({ fileName, children, windowWidth, theme, windowControlsTheme }: CodeWindowProps) {
     const themeConfig = theme;
 
     return (
@@ -25,11 +28,7 @@ export default function CodeWindow({ fileName, children, windowWidth, theme }: C
                     borderBottom: `1px solid ${themeConfig.window.border}`,
                 }}
             >
-                <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
+                <CodeWindowControls windowControlsTheme={windowControlsTheme} />
 
                 <div className="text-sm font-medium" style={{ color: themeConfig.window.text }}>
                     {fileName}

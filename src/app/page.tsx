@@ -8,11 +8,13 @@ import GridBackground from "@/components/GridBackground";
 import Titlebar from "@/components/Titlebar";
 import { HellishCreativeAd } from "@/components/HellishCreativeAd";
 import { vsDarkTheme } from "@/lib/themes/vs-themes";
+import { macosWindowControls } from "@/lib/windowControls";
 
 export default function Home() {
     const [config, setConfig] = useState<ScreenshotConfig>({
         language: "javascript",
         theme: vsDarkTheme,
+        windowControlsTheme: macosWindowControls,
         padding: 16,
         windowWidth: 400,
         backgroundPadding: 40,
