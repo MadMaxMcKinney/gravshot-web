@@ -36,7 +36,7 @@ export default function ThemePreview({ theme }: ThemePreviewProps) {
                         <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.keyword }} />
                         <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.string }} />
                         <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.function }} />
-                        <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.comment }} />
+                        <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.number }} />
                     </div>
                 </div>
             </div>
