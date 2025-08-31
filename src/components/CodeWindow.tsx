@@ -1,4 +1,4 @@
-import { CodeWindowTheme } from '@/types/theme';
+import { CodeWindowTheme } from "@/types/theme";
 
 interface CodeWindowProps {
     fileName: string;
@@ -9,20 +9,20 @@ interface CodeWindowProps {
 
 export default function CodeWindow({ fileName, children, windowWidth, theme }: CodeWindowProps) {
     const themeConfig = theme;
-    
+
     return (
-        <div 
-            className="rounded-lg shadow-2xl overflow-hidden" 
-            style={{ 
+        <div
+            className="rounded-lg shadow-2xl overflow-hidden"
+            style={{
                 width: windowWidth,
-                backgroundColor: themeConfig.window.background
+                backgroundColor: themeConfig.window.background,
             }}
         >
-            <div 
+            <div
                 className="flex items-center justify-between px-4 py-3"
                 style={{
                     backgroundColor: themeConfig.window.titlebar,
-                    borderBottom: `1px solid ${themeConfig.window.border}`
+                    borderBottom: `1px solid ${themeConfig.window.border}`,
                 }}
             >
                 <div className="flex items-center gap-2">
@@ -31,10 +31,7 @@ export default function CodeWindow({ fileName, children, windowWidth, theme }: C
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
 
-                <div 
-                    className="text-sm font-medium"
-                    style={{ color: themeConfig.window.text }}
-                >
+                <div className="text-sm font-medium" style={{ color: themeConfig.window.text }}>
                     {fileName}
                 </div>
 

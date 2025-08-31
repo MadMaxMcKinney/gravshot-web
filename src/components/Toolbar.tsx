@@ -113,14 +113,12 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                             }
                                         }}
                                     >
-                                        <SelectTrigger id="theme" className="w-full col-span-2 h-20">
-                                            <SelectValue placeholder="Select theme">
-                                                <ThemePreview theme={config.theme} isSelected={true} />
-                                            </SelectValue>
+                                        <SelectTrigger id="theme" className="w-full col-span-2 min-h-fit">
+                                            <ThemePreview theme={config.theme} isSelected={true} />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {themes.map((theme) => (
-                                                <SelectItem key={theme.name} value={theme.id} className="p-4 w-80">
+                                                <SelectItem key={theme.name} value={theme.id} className="p-2">
                                                     <ThemePreview theme={theme} isSelected={theme.id === config.theme.id} />
                                                 </SelectItem>
                                             ))}
