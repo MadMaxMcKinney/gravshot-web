@@ -16,7 +16,7 @@ export interface WindowColors {
 }
 
 export interface CodeWindowTheme {
-    id: CodeWindowThemeId;
+    id: string;
     name: string;
     colors: {
         background: string;
@@ -25,5 +25,3 @@ export interface CodeWindowTheme {
     };
     window: WindowColors;
 }
-
-export type CodeWindowThemeId = "vs-dark" | "vs-light" | "github-dark" | "github-light" | "monokai" | "dracula";

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getTheme } from "@/lib/themes";
+import { CodeWindowTheme } from "@/types/theme";
 
 interface SyntaxHighlighterProps {
     language: string;
-    theme: string;
+    theme: CodeWindowTheme;
     code: string;
     padding?: number;
 }
@@ -26,7 +26,7 @@ const getLanguageClass = (language: string) => {
 
 export default function SyntaxHighlighter({ language, theme, code, padding = 20 }: SyntaxHighlighterProps) {
     const [highlightedCode, setHighlightedCode] = useState("");
-    const themeConfig = getTheme(theme);
+    const themeConfig = theme;
     const prismLanguage = getLanguageClass(language);
 
     useEffect(() => {

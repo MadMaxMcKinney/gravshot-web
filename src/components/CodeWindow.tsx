@@ -1,14 +1,14 @@
-import { getTheme } from '@/lib/themes';
+import { CodeWindowTheme } from '@/types/theme';
 
 interface CodeWindowProps {
     fileName: string;
     children: React.ReactNode;
     windowWidth: number;
-    theme: string;
+    theme: CodeWindowTheme;
 }
 
 export default function CodeWindow({ fileName, children, windowWidth, theme }: CodeWindowProps) {
-    const themeConfig = getTheme(theme);
+    const themeConfig = theme;
     
     return (
         <div 

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import { getTheme } from "@/lib/themes";
+import { CodeWindowTheme } from "@/types/theme";
 
 interface EditableCodeEditorProps {
     language: string;
-    theme: string;
+    theme: CodeWindowTheme;
     code: string;
     padding?: number;
     onChange: (code: string) => void;
@@ -29,7 +29,7 @@ export default function EditableCodeEditor({ language, theme, code, padding = 20
     const [highlightedCode, setHighlightedCode] = useState("");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const preRef = useRef<HTMLPreElement>(null);
-    const themeConfig = getTheme(theme);
+    const themeConfig = theme;
     const prismLanguage = getLanguageClass(language);
 
     const highlightCode = useCallback(

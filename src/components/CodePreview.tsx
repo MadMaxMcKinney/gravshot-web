@@ -41,8 +41,8 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
                         />
                     </>
                 )}
-                <CodeWindow fileName={config.fileName} windowWidth={config.windowWidth} theme={config.themeId}>
-                    <EditableCodeEditor language={config.language} theme={config.themeId} code={config.code} padding={config.padding} onChange={(newCode) => setConfig({ ...config, code: newCode })} />
+                <CodeWindow fileName={config.fileName} windowWidth={config.windowWidth} theme={config.theme}>
+                    <EditableCodeEditor language={config.language} theme={config.theme} code={config.code} padding={config.padding} onChange={(newCode) => setConfig({ ...config, code: newCode })} />
                 </CodeWindow>
             </div>
         </div>
