@@ -8,13 +8,6 @@ export interface SyntaxColors {
     punctuation: string;
 }
 
-export interface ControlStyle {
-    background: string;
-    border: string;
-    borderRadius: string;
-    gap: string;
-}
-
 export interface WindowColors {
     background: string;
     titlebar: string;
@@ -22,8 +15,8 @@ export interface WindowColors {
     text: string;
 }
 
-export interface Theme {
-    id: string;
+export interface CodeWindowTheme {
+    id: CodeWindowThemeId;
     name: string;
     colors: {
         background: string;
@@ -33,4 +26,4 @@ export interface Theme {
     window: WindowColors;
 }
 
-export type ThemeId = "vs-dark" | "vs-light" | "github-dark" | "github-light" | "monokai" | "dracula";
+export type CodeWindowThemeId = "vs-dark" | "vs-light" | "github-dark" | "github-light" | "monokai" | "dracula";

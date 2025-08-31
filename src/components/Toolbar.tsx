@@ -11,7 +11,7 @@ import { Code, Cog, Eye, Image, Share } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorPicker from "@/components/ColorPicker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Theme, ThemeId } from "@/types/theme";
+import { CodeWindowTheme, CodeWindowThemeId } from "@/types/theme";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -104,7 +104,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                 {/* Theme */}
                                 <div className="grid grid-cols-2 items-center gap-4">
                                     <Label htmlFor="theme">Theme</Label>
-                                    <Select value={config.themeId} onValueChange={(value: ThemeId) => setConfig({ ...config, themeId: value })}>
+                                    <Select value={config.themeId} onValueChange={(value: CodeWindowThemeId) => setConfig({ ...config, themeId: value })}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Select theme" />
                                         </SelectTrigger>

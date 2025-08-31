@@ -1,6 +1,6 @@
-import { Theme, ThemeId } from "@/types/theme";
+import { CodeWindowTheme, CodeWindowThemeId } from "@/types/theme";
 
-export const themes: Record<ThemeId, Theme> = {
+export const themes: Record<CodeWindowThemeId, CodeWindowTheme> = {
     "vs-dark": {
         id: "vs-dark",
         name: "VS Dark",
@@ -141,8 +141,8 @@ export const themes: Record<ThemeId, Theme> = {
     },
 };
 
-export const getTheme = (themeId: string): Theme => {
-    return themes[themeId as ThemeId] || themes["vs-dark"];
+export const getTheme = (themeId: string): CodeWindowTheme => {
+    return themes[themeId as CodeWindowThemeId] || themes["vs-dark"];
 };
 
 export const getThemeList = (): Array<{ value: string; label: string }> => {

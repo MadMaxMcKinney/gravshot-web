@@ -1,8 +1,8 @@
-import { ThemeId } from "@/types/theme";
+import { CodeWindowThemeId } from "@/types/theme";
 
 export interface ScreenshotConfig {
     language: string;
-    themeId: ThemeId;
+    themeId: CodeWindowThemeId;
     padding: number;
     windowWidth: number;
     backgroundPadding: number;
