@@ -12,15 +12,12 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
     const backgroundStyle = {
         backgroundColor: config.backgroundImage ? undefined : config.backgroundColor,
         backgroundImage: config.backgroundImage ? `url(${config.backgroundImage})` : undefined,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         padding: config.backgroundPadding,
     };
 
     return (
         <div className="flex-1 flex items-center justify-center p-8">
-            <div className="flex items-center justify-center rounded-lg relative" style={backgroundStyle}>
+            <div className={`flex items-center justify-center rounded-lg relative bg-cover bg-center bg-no-repeat`} style={backgroundStyle}>
                 {config.showDragControls && (
                     <>
                         <DragHandle

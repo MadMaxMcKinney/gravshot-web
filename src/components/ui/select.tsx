@@ -101,12 +101,12 @@ function SelectItemRaw({ className, children, ...props }: React.ComponentProps<t
             )}
             {...props}
         >
-            <span className="absolute right-2 flex size-3.5 items-center justify-center">
+            {/* <span className="absolute right-2 flex size-3.5 items-center justify-center">
                 <SelectPrimitive.ItemIndicator>
                     <CheckIcon className="size-4" />
                 </SelectPrimitive.ItemIndicator>
-            </span>
-            <div className="pr-6 flex flex-1">{children}</div>
+            </span> */}
+            <div className="flex flex-1">{children}</div>
         </SelectPrimitive.Item>
     );
 }

@@ -2,16 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectItemRaw } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { languages } from "@/lib/languages";
 import { themeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
 import { Switch } from "@/components/ui/switch";
-import { Code, Cog, Eye, Image, Share } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ColorPicker from "@/components/ColorPicker";
+import { Code, Cog, Image, Share } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import ThemePreview from "@/components/ThemePreview";
+import { ToolAppearance } from "@/components/tools/ToolAppearance";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -20,27 +18,6 @@ interface ToolbarProps {
 
 export default function Toolbar({ config, setConfig }: ToolbarProps) {
     const themes = themeList;
-
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setConfig({
-                    ...config,
-                    backgroundImage: e.target?.result as string,
-                });
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const clearBackgroundImage = () => {
-        setConfig({
-            ...config,
-            backgroundImage: null,
-        });
-    };
 
     return (
         <footer className="fixed bottom-12 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">
@@ -96,57 +73,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                             <TooltipContent>Appearance</TooltipContent>
                         </Tooltip>
                         <PopoverContent className="w-100">
-                            <div className="grid gap-4">
-                                <div className="space-y-2">
-                                    <h4 className="leading-none font-medium">Appearance</h4>
-                                    <p className="text-muted-foreground text-sm">Customize the background, colors, and more.</p>
-                                </div>
-                                {/* Theme */}
-                                <div className="grid grid-cols-3 items-center gap-4">
-                                    <Label htmlFor="theme">Theme</Label>
-                                    <Select
-                                        value={config.theme.id}
-                                        onValueChange={(themeId) => {
-                                            const selectedTheme = themes.find((theme) => theme.id === themeId);
-                                            if (selectedTheme) {
-                                                setConfig({ ...config, theme: selectedTheme });
-                                            }
-                                        }}
-                                    >
-                                        <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 min-h-fit">
-                                            <ThemePreview theme={config.theme} isSelected={true} />
-                                        </SelectTrigger>
-                                        <SelectContent className="gap-2">
-                                            {themes.map((theme) => (
-                                                <SelectItemRaw key={theme.name} value={theme.id} className="p-2">
-                                                    <ThemePreview theme={theme} isSelected={theme.id === config.theme.id} />
-                                                </SelectItemRaw>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                {/* Background */}
-                                <Tabs defaultValue="color">
-                                    <div className="flex justify-between">
-                                        <Label htmlFor="backgroundTypes">Background</Label>
-                                        <TabsList id="backgroundTypes">
-                                            <TabsTrigger value="color">Color</TabsTrigger>
-                                            <TabsTrigger value="image">Image</TabsTrigger>
-                                            <TabsTrigger value="transparent">Transparent</TabsTrigger>
-                                        </TabsList>
-                                    </div>
-                                    <TabsContent value="color">
-                                        <div className="grid mt-2 grid-cols-2 items-center gap-4">
-                                            <Label htmlFor="bgColor">Background color</Label>
-                                            <div className="flex justify-end gap-1">
-                                                <ColorPicker className="flex-1" color={config.backgroundColor} setConfig={setConfig} config={config} />
-                                                <Input id="bgColor" value={config.backgroundColor} onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })} className="w-28" />
-                                            </div>
-                                        </div>
-                                    </TabsContent>
-                                    <TabsContent value="image">Change your password here.</TabsContent>
-                                </Tabs>
-                            </div>
+                            <ToolAppearance config={config} setConfig={setConfig} themes={themes} className="grid gap-4" />
                         </PopoverContent>
                     </Popover>
                     {/* Editor settings */}

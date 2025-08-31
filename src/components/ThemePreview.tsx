@@ -27,11 +27,11 @@ export default function ThemePreview({ theme }: ThemePreviewProps) {
                     </div>
                 </div>
                 <div className="w-full p-2">
-                    <div className="flex w-full rounded-md overflow-hidden border border-border/50 shadow-sm" style={{ height: "24px" }}>
+                    <div className="flex w-full rounded-md overflow-hidden border border-border/50 shadow-sm h-6">
                         {/* Background color */}
-                        <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.background }} />
+                        {/* <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.background }} /> */}
                         {/* Window colors */}
-                        <div className="flex-1 h-full" style={{ backgroundColor: theme.window.titlebar }} />
+                        {/* <div className="flex-1 h-full" style={{ backgroundColor: theme.window.titlebar }} /> */}
                         {/* Syntax colors preview */}
                         <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.keyword }} />
                         <div className="flex-1 h-full" style={{ backgroundColor: theme.colors.tokens.string }} />
