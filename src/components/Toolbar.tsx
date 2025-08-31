@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { languages } from "@/lib/languages";
-import { getThemeList } from "@/lib/themes";
+import { themeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
 import { Switch } from "@/components/ui/switch";
 import { Code, Cog, Eye, Image, Share } from "lucide-react";
@@ -19,7 +19,7 @@ interface ToolbarProps {
 }
 
 export default function Toolbar({ config, setConfig }: ToolbarProps) {
-    const themes = getThemeList();
+    const themes = themeList;
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -110,8 +110,8 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                         </SelectTrigger>
                                         <SelectContent id="theme">
                                             {themes.map((theme) => (
-                                                <SelectItem key={theme.label} value={theme.value}>
-                                                    {theme.label}
+                                                <SelectItem key={theme.name} value={theme.id}>
+                                                    {theme.name}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

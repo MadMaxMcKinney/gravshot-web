@@ -1,153 +1,19 @@
 import { CodeWindowTheme, CodeWindowThemeId } from "@/types/theme";
+import { vsDarkTheme, vsLightTheme } from "./themes/vs-themes";
+import { githubDarkTheme, githubLightTheme } from "./themes/github-themes";
+import { monokaiTheme, draculaTheme } from "./themes/popular-themes";
 
-export const themes: Record<CodeWindowThemeId, CodeWindowTheme> = {
-    "vs-dark": {
-        id: "vs-dark",
-        name: "VS Dark",
-        colors: {
-            background: "#1e1e1e",
-            text: "#d4d4d4",
-            tokens: {
-                keyword: "#569cd6",
-                string: "#ce9178",
-                comment: "#6a9955",
-                number: "#b5cea8",
-                function: "#dcdcaa",
-                operator: "#d4d4d4",
-                punctuation: "#d4d4d4",
-            },
-        },
-        window: {
-            background: "#1e1e1e",
-            titlebar: "#2d2d30",
-            border: "#3e3e42",
-            text: "#cccccc",
-        },
-    },
-    "vs-light": {
-        id: "vs-light",
-        name: "VS Light",
-        colors: {
-            background: "#ffffff",
-            text: "#000000",
-            tokens: {
-                keyword: "#0000ff",
-                string: "#a31515",
-                comment: "#008000",
-                number: "#098658",
-                function: "#795e26",
-                operator: "#000000",
-                punctuation: "#000000",
-            },
-        },
-        window: {
-            background: "#ffffff",
-            titlebar: "#f3f3f3",
-            border: "#e5e5e5",
-            text: "#333333",
-        },
-    },
-    "github-dark": {
-        id: "github-dark",
-        name: "GitHub Dark",
-        colors: {
-            background: "#0d1117",
-            text: "#c9d1d9",
-            tokens: {
-                keyword: "#ff7b72",
-                string: "#a5d6ff",
-                comment: "#8b949e",
-                number: "#79c0ff",
-                function: "#d2a8ff",
-                operator: "#c9d1d9",
-                punctuation: "#c9d1d9",
-            },
-        },
-        window: {
-            background: "#0d1117",
-            titlebar: "#21262d",
-            border: "#30363d",
-            text: "#f0f6fc",
-        },
-    },
-    "github-light": {
-        id: "github-light",
-        name: "GitHub Light",
-        colors: {
-            background: "#ffffff",
-            text: "#24292f",
-            tokens: {
-                keyword: "#cf222e",
-                string: "#0a3069",
-                comment: "#6e7781",
-                number: "#0550ae",
-                function: "#8250df",
-                operator: "#24292f",
-                punctuation: "#24292f",
-            },
-        },
-        window: {
-            background: "#ffffff",
-            titlebar: "#f6f8fa",
-            border: "#d1d9e0",
-            text: "#24292f",
-        },
-    },
-    monokai: {
-        id: "monokai",
-        name: "Monokai",
-        colors: {
-            background: "#272822",
-            text: "#f8f8f2",
-            tokens: {
-                keyword: "#f92672",
-                string: "#e6db74",
-                comment: "#75715e",
-                number: "#ae81ff",
-                function: "#a6e22e",
-                operator: "#f8f8f2",
-                punctuation: "#f8f8f2",
-            },
-        },
-        window: {
-            background: "#272822",
-            titlebar: "#3e3d32",
-            border: "#49483e",
-            text: "#f8f8f2",
-        },
-    },
-    dracula: {
-        id: "dracula",
-        name: "Dracula",
-        colors: {
-            background: "#282a36",
-            text: "#f8f8f2",
-            tokens: {
-                keyword: "#ff79c6",
-                string: "#f1fa8c",
-                comment: "#6272a4",
-                number: "#bd93f9",
-                function: "#50fa7b",
-                operator: "#f8f8f2",
-                punctuation: "#f8f8f2",
-            },
-        },
-        window: {
-            background: "#282a36",
-            titlebar: "#44475a",
-            border: "#6272a4",
-            text: "#f8f8f2",
-        },
-    },
-};
+export const themes = {
+    [vsDarkTheme.id]: vsDarkTheme,
+    [vsLightTheme.id]: vsLightTheme,
+    [githubDarkTheme.id]: githubDarkTheme,
+    [githubLightTheme.id]: githubLightTheme,
+    [monokaiTheme.id]: monokaiTheme,
+    [draculaTheme.id]: draculaTheme,
+} as const;
+
+export const themeList = Object.values(themes);
 
 export const getTheme = (themeId: string): CodeWindowTheme => {
     return themes[themeId as CodeWindowThemeId] || themes["vs-dark"];
-};
-
-export const getThemeList = (): Array<{ value: string; label: string }> => {
-    return Object.values(themes).map((theme) => ({
-        value: theme.id,
-        label: theme.name,
-    }));
 };
