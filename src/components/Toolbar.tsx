@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectItemRaw } from "@/components/ui/select";
 import { languages } from "@/lib/languages";
 import { themeList } from "@/lib/themes";
 import { ScreenshotConfig } from "@/types/screenshot";
@@ -113,14 +113,14 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                                             }
                                         }}
                                     >
-                                        <SelectTrigger id="theme" className="w-full col-span-2 min-h-fit">
+                                        <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 min-h-fit">
                                             <ThemePreview theme={config.theme} isSelected={true} />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="gap-2">
                                             {themes.map((theme) => (
-                                                <SelectItem key={theme.name} value={theme.id} className="p-2">
+                                                <SelectItemRaw key={theme.name} value={theme.id} className="p-2">
                                                     <ThemePreview theme={theme} isSelected={theme.id === config.theme.id} />
-                                                </SelectItem>
+                                                </SelectItemRaw>
                                             ))}
                                         </SelectContent>
                                     </Select>

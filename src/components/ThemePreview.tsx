@@ -10,7 +10,7 @@ export default function ThemePreview({ theme }: ThemePreviewProps) {
         <div className="w-full">
             {/* Theme color palette preview */}
             <div
-                className="rounded-lg w-full shadow-2xl overflow-hidden"
+                className="rounded-md w-full shadow-xs border border-border overflow-hidden"
                 style={{
                     backgroundColor: theme.window.background,
                 }}
