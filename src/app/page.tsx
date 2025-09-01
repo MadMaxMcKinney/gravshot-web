@@ -58,8 +58,8 @@ console.log(fibonacci(10));`,
     };
 
     return (
-        <motion.div className="flex h-screen bg-gray-100" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-            <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-90% mask-radial-at-center mask-cover" />
+        <motion.div className="flex h-screen bg-gray-100 dark:bg-zinc-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-90% mask-radial-at-center mask-cover text-[#d7d9db] dark:text-zinc-800" />
             <Toolbar config={config} setConfig={setConfig} onExport={handleExport} />
 
             {/* Always visible - user interacts with this */}

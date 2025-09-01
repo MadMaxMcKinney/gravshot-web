@@ -11,7 +11,7 @@ interface GridBackgroundProps {
     children?: React.ReactNode;
 }
 
-export default function GridBackground({ gridSize = 30, gridLineColor = "#d7d9db", gridLineWidth = 1, backgroundColor = "transparent", className = "", children }: GridBackgroundProps) {
+export default function GridBackground({ gridSize = 30, gridLineColor = "currentColor", gridLineWidth = 1, backgroundColor = "transparent", className = "", children }: GridBackgroundProps) {
     const gridStyle: CSSProperties = {
         backgroundColor,
         backgroundImage: `

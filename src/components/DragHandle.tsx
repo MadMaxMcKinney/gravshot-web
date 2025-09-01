@@ -66,7 +66,7 @@ export default function DragHandle({ type, value, onChange, min, max, className 
                     flex items-center justify-center border border-border text-foreground text-xs font-medium
                     rounded-full select-none transition-all duration-200 shadow-lg
                     ${isDragging ? "bg-muted" : ""}
-                    ${isHovering || isDragging ? "bg-muted w-auto h-6 px-3 py-1" : "w-3 h-3 bg-zinc-400"}
+                    ${isHovering || isDragging ? "bg-muted w-auto h-6 px-3 py-1" : "w-3 h-3 bg-zinc-400 dark:bg-zinc-600"}
                 `}
             >
                 {(isHovering || isDragging) && <span className="whitespace-nowrap">{getLabel()}</span>}

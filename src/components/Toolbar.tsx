@@ -11,6 +11,8 @@ import { Code, Cog, Image, Share } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { ToolAppearance } from "@/components/tools/ToolAppearance";
 import { motion } from "motion/react";
+import ThemeSelector from "@/components/ThemeSelector";
+import { useSystemThemeInit } from "@/hooks/useSystemThemeInit";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -20,6 +22,8 @@ interface ToolbarProps {
 
 export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
     const themes = themeList;
+    // Initialize dark mode/light mode theme on mount - just once to apply saved theme immediately
+    useSystemThemeInit();
 
     return (
         <footer className="fixed bottom-12 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">
@@ -29,7 +33,9 @@ export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, type: "spring", bounce: 0.5 }}
             >
+                {/* Name */}
                 <Input type="text" placeholder="file_name.js" onChange={(e) => setConfig({ ...config, fileName: e.target.value })} className="max-w-40" />
+
                 <div className="flex gap-2">
                     {/* Code settings */}
                     <Popover>
@@ -109,10 +115,17 @@ export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
                                         <Switch id="showDragHandles" checked={config.showDragControls} onCheckedChange={(checked) => setConfig({ ...config, showDragControls: checked })} />
                                     </div>
                                 </div>
+                                <div className="grid grid-cols-2 items-center gap-4">
+                                    <Label htmlFor="themeSelector">UI theme</Label>
+                                    <div className="justify-self-end">
+                                        <ThemeSelector />
+                                    </div>
+                                </div>
                             </div>
                         </PopoverContent>
                     </Popover>
                 </div>
+                {/* Export */}
                 <Button onClick={() => onExport && onExport()}>
                     Export image <Share />
                 </Button>
