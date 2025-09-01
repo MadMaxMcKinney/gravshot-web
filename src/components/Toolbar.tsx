@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { ToolAppearance } from "@/components/tools/ToolAppearance";
 import { motion } from "motion/react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { useSystemThemeInit } from "@/hooks/useSystemThemeInit";
+import { useSystemTheme } from "@/hooks/useSystemTheme";
 
 interface ToolbarProps {
     config: ScreenshotConfig;
@@ -22,8 +22,7 @@ interface ToolbarProps {
 
 export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
     const themes = themeList;
-    // Initialize dark mode/light mode theme on mount - just once to apply saved theme immediately
-    useSystemThemeInit();
+    useSystemTheme();
 
     return (
         <footer className="fixed bottom-12 left-0 right-0 flex flex-col justify-center items-center gap-3 px-12">

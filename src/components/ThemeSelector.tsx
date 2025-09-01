@@ -1,57 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Monitor, Moon, Sun } from "lucide-react";
-
-type Theme = "light" | "dark" | "system";
+import { useSystemTheme, type Theme } from "@/hooks/useSystemTheme";
 
 export default function ThemeSelector() {
-    const [theme, setTheme] = useState<Theme>("system");
-
-    // Initialize theme from localStorage
-    useEffect(() => {
-        const savedTheme = (localStorage.getItem("theme") as Theme) || "system";
-        setTheme(savedTheme);
-    }, []);
-
-    // Listen for system theme changes
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        
-        const handleChange = () => {
-            if (theme === "system") {
-                applyTheme("system");
-            }
-        };
-
-        mediaQuery.addEventListener("change", handleChange);
-        return () => mediaQuery.removeEventListener("change", handleChange);
-    }, [theme]);
-
-    const applyTheme = (selectedTheme: Theme) => {
-        const html = document.documentElement;
-        
-        if (selectedTheme === "dark") {
-            html.classList.add("dark");
-        } else if (selectedTheme === "light") {
-            html.classList.remove("dark");
-        } else {
-            // System theme
-            const systemIsDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            if (systemIsDark) {
-                html.classList.add("dark");
-            } else {
-                html.classList.remove("dark");
-            }
-        }
-    };
-
-    const handleThemeChange = (newTheme: Theme) => {
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-        applyTheme(newTheme);
-    };
+    const { theme, setTheme } = useSystemTheme();
 
     const getThemeIcon = (themeOption: Theme) => {
         switch (themeOption) {
@@ -76,7 +30,7 @@ export default function ThemeSelector() {
     };
 
     return (
-        <Select value={theme} onValueChange={handleThemeChange}>
+        <Select value={theme} onValueChange={setTheme}>
             <SelectTrigger className="w-32">
                 <SelectValue>
                     <div className="flex items-center gap-2">
