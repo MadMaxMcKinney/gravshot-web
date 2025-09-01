@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
     title: "Gravshot",
@@ -15,8 +16,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`antialiased`}>
-                {children}
-                <Toaster position="top-center" />
+                <ThemeProvider>
+                    {children}
+                    <Toaster position="top-center" />
+                </ThemeProvider>
             </body>
         </html>
     );

@@ -2,12 +2,13 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Monitor, Moon, Sun } from "lucide-react";
-import { useSystemTheme, type Theme } from "@/hooks/useSystemTheme";
+import { useSystemThemeContext } from "@/contexts/ThemeContext";
+import type { SystemTheme } from "@/hooks/useSystemTheme";
 
 export default function ThemeSelector() {
-    const { theme, setTheme } = useSystemTheme();
+    const { theme, setTheme } = useSystemThemeContext();
 
-    const getThemeIcon = (themeOption: Theme) => {
+    const getThemeIcon = (themeOption: SystemTheme) => {
         switch (themeOption) {
             case "light":
                 return <Sun className="w-4 h-4" />;
@@ -18,7 +19,7 @@ export default function ThemeSelector() {
         }
     };
 
-    const getThemeLabel = (themeOption: Theme) => {
+    const getThemeLabel = (themeOption: SystemTheme) => {
         switch (themeOption) {
             case "light":
                 return "Light";
@@ -40,7 +41,7 @@ export default function ThemeSelector() {
                 </SelectValue>
             </SelectTrigger>
             <SelectContent>
-                {(["light", "dark", "system"] as Theme[]).map((themeOption) => (
+                {(["light", "dark", "system"] as SystemTheme[]).map((themeOption) => (
                     <SelectItem key={themeOption} value={themeOption}>
                         <div className="flex items-center gap-2">
                             {getThemeIcon(themeOption)}

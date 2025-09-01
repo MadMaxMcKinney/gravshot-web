@@ -1,28 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CodePreview from "@/components/CodePreview";
 import { ScreenshotConfig } from "@/types/screenshot";
 import Toolbar from "@/components/Toolbar";
 import GridBackground from "@/components/GridBackground";
 import Titlebar from "@/components/Titlebar";
 import { HellishCreativeAd } from "@/components/HellishCreativeAd";
-import { vsDarkTheme } from "@/lib/themes/vs-themes";
 import { macosWindowControls } from "@/lib/windowControls";
 import { useToPng } from "@hugocxl/react-to-image";
 import { toast } from "sonner";
 import { motion } from "motion/react";
+import { githubDarkTheme, githubLightTheme } from "@/lib/themes/github-themes";
+import { useSystemThemeContext } from "@/contexts/ThemeContext";
 
 export default function Home() {
     const [isExporting, setIsExporting] = useState(false);
+    const { effectiveTheme } = useSystemThemeContext();
     const [config, setConfig] = useState<ScreenshotConfig>({
         language: "javascript",
-        theme: vsDarkTheme,
+        theme: githubDarkTheme,
         windowControlsTheme: macosWindowControls,
         padding: 16,
         windowWidth: 400,
         backgroundPadding: 40,
-        backgroundColor: "#1e293b",
+        backgroundColor: "#040c14",
         backgroundImage: null,
         fileName: "example.js",
         showDragControls: true,

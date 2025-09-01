@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 
-export type Theme = "light" | "dark" | "system";
+export type SystemTheme = "light" | "dark" | "system";
 
 export interface UseSystemThemeReturn {
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
-    applyTheme: (theme: Theme) => void;
+    theme: SystemTheme;
+    setTheme: (theme: SystemTheme) => void;
+    applyTheme: (theme: SystemTheme) => void;
     effectiveTheme: "light" | "dark";
 }
 
 export function useSystemTheme(): UseSystemThemeReturn {
-    const [theme, setThemeState] = useState<Theme>("system");
+    const [systemTheme, setSystemThemeState] = useState<SystemTheme>("system");
     const [isSystemDark, setIsSystemDark] = useState(false);
+    const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark">("light");
 
     // Check system theme preference
     useEffect(() => {
@@ -21,23 +22,23 @@ export function useSystemTheme(): UseSystemThemeReturn {
         const handleChange = (e: MediaQueryListEvent) => {
             setIsSystemDark(e.matches);
             // If currently using system theme, reapply it
-            if (theme === "system") {
+            if (systemTheme === "system") {
                 applyTheme("system");
             }
         };
 
         mediaQuery.addEventListener("change", handleChange);
         return () => mediaQuery.removeEventListener("change", handleChange);
-    }, [theme]);
+    }, [systemTheme]);
 
     // Initialize theme on mount
     useEffect(() => {
-        const savedTheme = (localStorage.getItem("theme") as Theme) || "system";
-        setThemeState(savedTheme);
+        const savedTheme = (localStorage.getItem("theme") as SystemTheme) || "system";
+        setSystemThemeState(savedTheme);
         applyTheme(savedTheme);
     }, []);
 
-    const applyTheme = (selectedTheme: Theme) => {
+    const applyTheme = (selectedTheme: SystemTheme) => {
         const html = document.documentElement;
 
         if (selectedTheme === "dark") {
@@ -55,17 +56,20 @@ export function useSystemTheme(): UseSystemThemeReturn {
         }
     };
 
-    const setTheme = (newTheme: Theme) => {
-        setThemeState(newTheme);
+    const setTheme = (newTheme: SystemTheme) => {
+        setSystemThemeState(newTheme);
         localStorage.setItem("theme", newTheme);
         applyTheme(newTheme);
     };
 
-    // Calculate the effective theme (what's actually applied)
-    const effectiveTheme: "light" | "dark" = theme === "system" ? (isSystemDark ? "dark" : "light") : theme;
+    // Update effectiveTheme when dependencies change
+    useEffect(() => {
+        const newEffectiveTheme = systemTheme === "system" ? (isSystemDark ? "dark" : "light") : systemTheme;
+        setEffectiveTheme(newEffectiveTheme);
+    }, [systemTheme, isSystemDark]);
 
     return {
-        theme,
+        theme: systemTheme,
         setTheme,
         applyTheme,
         effectiveTheme,
