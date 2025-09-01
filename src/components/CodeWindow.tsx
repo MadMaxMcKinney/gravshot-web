@@ -15,7 +15,7 @@ export default function CodeWindow({ fileName, children, windowWidth, theme, win
 
     return (
         <div
-            className="rounded-lg shadow-2xl overflow-hidden"
+            className={"rounded-lg shadow-2xl overflow-hidden"}
             style={{
                 width: windowWidth,
                 backgroundColor: themeConfig.window.background,

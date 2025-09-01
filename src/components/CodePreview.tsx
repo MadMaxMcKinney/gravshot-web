@@ -6,9 +6,11 @@ import { ScreenshotConfig } from "@/types/screenshot";
 interface CodePreviewProps {
     config: ScreenshotConfig;
     setConfig: (config: ScreenshotConfig) => void;
+    codeWindowRef?: any;
+    exportMode?: boolean;
 }
 
-export default function CodePreview({ config, setConfig }: CodePreviewProps) {
+export default function CodePreview({ config, setConfig, codeWindowRef: ref, exportMode = false }: CodePreviewProps) {
     const backgroundStyle = {
         backgroundColor: config.backgroundImage ? undefined : config.backgroundColor,
         backgroundImage: config.backgroundImage ? `url(${config.backgroundImage})` : undefined,
@@ -17,8 +19,9 @@ export default function CodePreview({ config, setConfig }: CodePreviewProps) {
 
     return (
         <div className="flex-1 flex items-center justify-center p-8">
-            <div className={`flex items-center justify-center rounded-lg relative bg-cover bg-center bg-no-repeat`} style={backgroundStyle}>
-                {config.showDragControls && (
+            {/* Code */}
+            <div className={`flex items-center justify-center relative bg-cover bg-center bg-no-repeat ${exportMode ? "" : "rounded-lg"}`} style={backgroundStyle} ref={ref}>
+                {config.showDragControls && !exportMode && (
                     <>
                         <DragHandle
                             type="backgroundPadding"

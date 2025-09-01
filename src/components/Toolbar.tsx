@@ -14,9 +14,10 @@ import { ToolAppearance } from "@/components/tools/ToolAppearance";
 interface ToolbarProps {
     config: ScreenshotConfig;
     setConfig: (config: ScreenshotConfig) => void;
+    onExport?: () => void;
 }
 
-export default function Toolbar({ config, setConfig }: ToolbarProps) {
+export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
     const themes = themeList;
 
     return (
@@ -106,7 +107,7 @@ export default function Toolbar({ config, setConfig }: ToolbarProps) {
                         </PopoverContent>
                     </Popover>
                 </div>
-                <Button>
+                <Button onClick={() => onExport && onExport()}>
                     Export image <Share />
                 </Button>
             </div>
