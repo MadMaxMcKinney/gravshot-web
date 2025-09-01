@@ -23,7 +23,7 @@ export default function CodeWindow({ fileName, children, windowWidth, theme, win
             }}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            transition={{ type: "spring", delay: 0.3, bounce: 0.4 }}
+            transition={{ type: "spring", delay: 0.2, bounce: 0.4 }}
         >
             <div
                 className="flex items-center justify-between px-4 py-3"

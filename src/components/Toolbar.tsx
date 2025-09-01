@@ -27,7 +27,7 @@ export default function Toolbar({ config, setConfig, onExport }: ToolbarProps) {
                 className="rounded-xl shadow-lg px-3 py-3 bg-background/80 border border-border flex gap-4"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2, type: "spring", bounce: 0.5 }}
+                transition={{ delay: 0.5, type: "spring", bounce: 0.5 }}
             >
                 <Input type="text" placeholder="file_name.js" onChange={(e) => setConfig({ ...config, fileName: e.target.value })} className="max-w-40" />
                 <div className="flex gap-2">
