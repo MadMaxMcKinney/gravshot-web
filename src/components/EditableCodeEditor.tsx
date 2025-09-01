@@ -38,21 +38,26 @@ export default function EditableCodeEditor({ language, theme, code, padding = 20
                 // Dynamic import to avoid SSR issues
                 const Prism = (await import("prismjs")).default;
 
-                // Load required languages
-                await Promise.all([
-                    import("prismjs/components/prism-javascript"),
-                    import("prismjs/components/prism-typescript"),
-                    import("prismjs/components/prism-python"),
-                    import("prismjs/components/prism-java"),
-                    import("prismjs/components/prism-css"),
-                    import("prismjs/components/prism-markup"),
-                    import("prismjs/components/prism-json"),
-                ]);
+                // Load required languages with proper error handling and type suppression
+                const languageImports = [
+                    () => import("prismjs/components/prism-javascript" as any),
+                    () => import("prismjs/components/prism-typescript" as any),
+                    () => import("prismjs/components/prism-python" as any),
+                    () => import("prismjs/components/prism-java" as any),
+                    () => import("prismjs/components/prism-css" as any),
+                    () => import("prismjs/components/prism-markup" as any),
+                    () => import("prismjs/components/prism-json" as any),
+                ];
+
+                // Load all language components, ignoring any failures
+                await Promise.allSettled(
+                    languageImports.map(importFn => importFn().catch(() => null))
+                );
 
                 // Load C++ separately as it might cause issues
                 if (prismLanguage === "cpp") {
                     try {
-                        await import("prismjs/components/prism-cpp");
+                        await import("prismjs/components/prism-cpp" as any);
                     } catch (err) {
                         // Fallback to plain text for cpp if it fails
                         setHighlightedCode(codeToHighlight);
