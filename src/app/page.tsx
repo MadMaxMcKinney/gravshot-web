@@ -11,6 +11,7 @@ import { vsDarkTheme } from "@/lib/themes/vs-themes";
 import { macosWindowControls } from "@/lib/windowControls";
 import { useToPng } from "@hugocxl/react-to-image";
 import { toast } from "sonner";
+import { motion } from "motion/react";
 
 export default function Home() {
     const [isExporting, setIsExporting] = useState(false);
@@ -57,7 +58,7 @@ console.log(fibonacci(10));`,
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <motion.div className="flex h-screen bg-gray-100" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
             <GridBackground className="fixed inset-0 mask-radial-from-0% mask-radial-to-90% mask-radial-at-center mask-cover" />
             <Toolbar config={config} setConfig={setConfig} onExport={handleExport} />
 
@@ -66,6 +67,6 @@ console.log(fibonacci(10));`,
 
             <Titlebar />
             <HellishCreativeAd className="w-[230px] absolute top-12 right-12" />
-        </div>
+        </motion.div>
     );
 }

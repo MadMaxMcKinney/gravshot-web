@@ -1,9 +1,14 @@
-import { Orbit } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function Titlebar() {
     return (
         <header className="fixed top-12 left-0 right-0 items-start px-12 flex flex-col gap-2 justify-start">
-            <div className="rounded-xl shadow-md/5 pl-2 pr-3 py-1 bg-background/80 border border-border flex gap-4">
+            <motion.div
+                className="rounded-xl shadow-md/5 pl-2 pr-3 py-1 bg-background/80 border border-border flex gap-4"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, type: "spring", bounce: 0.1 }}
+            >
                 <div className="flex items-center gap-1 text font-medium">
                     {/* Logo */}
                     <span className="w-5">
@@ -55,7 +60,7 @@ export default function Titlebar() {
                     </span>
                     <h1 className="font-[Oxanium]">gravshot</h1>
                 </div>
-            </div>
+            </motion.div>
         </header>
     );
 }
