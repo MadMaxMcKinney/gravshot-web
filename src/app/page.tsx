@@ -86,7 +86,7 @@ console.log(fibonacci(10));`,
             <CodePreview config={config} setConfig={setConfig} codeWindowRef={ref} exportMode={isExporting} />
 
             <Titlebar />
-            <HellishCreativeAd className="w-[230px] absolute top-12 right-12" />
+            <HellishCreativeAd className="w-[230px] fixed top-12 right-12" />
         </motion.div>
     );
 }

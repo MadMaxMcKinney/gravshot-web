@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useState, useRef, useCallback } from "react";
 
 interface DragHandleProps {
@@ -59,7 +60,15 @@ export default function DragHandle({ type, value, onChange, min, max, className 
     };
 
     return (
-        <div className={`absolute z-10 p-4 cursor-move ${className}`} onMouseDown={handleMouseDown} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+        <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.8, type: "spring" }}
+            className={`absolute z-10 p-4 cursor-move ${className}`}
+            onMouseDown={handleMouseDown}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+        >
             {/* Visual indicator */}
             <div
                 className={`
@@ -71,6 +80,6 @@ export default function DragHandle({ type, value, onChange, min, max, className 
             >
                 {(isHovering || isDragging) && <span className="whitespace-nowrap">{getLabel()}</span>}
             </div>
-        </div>
+        </motion.div>
     );
 }
