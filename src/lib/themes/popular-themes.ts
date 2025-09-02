@@ -1,4 +1,4 @@
-import { createTheme } from "../themeFactory";
+import { createTheme } from "../factories/themeFactory";
 
 export const monokaiTheme = createTheme({
     id: "monokai",

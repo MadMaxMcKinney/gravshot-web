@@ -1,4 +1,4 @@
-import { createWindowControlsTheme } from "@/lib/windowControlsFactory";
+import { createWindowControlsTheme } from "@/lib/factories/windowControlsFactory";
 
 export const macosWindowControls = createWindowControlsTheme({
     id: "macos",

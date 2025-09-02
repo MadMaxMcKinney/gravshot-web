@@ -1,4 +1,4 @@
-import { createTheme } from "../themeFactory";
+import { createTheme } from "@/lib/factories/themeFactory";
 
 export const vsDarkTheme = createTheme({
     id: "vs-dark",
