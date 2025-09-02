@@ -63,7 +63,7 @@ export default function DragHandle({ type, value, onChange, min, max, className 
         <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.8, type: "spring" }}
+            transition={{ delay: 0.5, type: "spring" }}
             className={`absolute z-10 p-4 cursor-move ${className}`}
             onMouseDown={handleMouseDown}
             onMouseEnter={() => setIsHovering(true)}

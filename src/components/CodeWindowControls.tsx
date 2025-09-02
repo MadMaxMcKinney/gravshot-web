@@ -5,7 +5,7 @@ export default function CodeWindowControls({ windowControlsTheme, previewMode }:
         return {
             backgroundColor: windowControlsTheme.colors[index],
             borderRadius: windowControlsTheme.borderRadii[index],
-            border: previewMode ? "1px solid var(--border)" : windowControlsTheme.borders ? `1px solid ${windowControlsTheme.borders[index]}` : undefined,
+            border: previewMode ? "1px solid var(--color-muted-foreground)" : windowControlsTheme.borders ? `1px solid ${windowControlsTheme.borders[index]}` : undefined,
         };
     }
 
@@ -13,7 +13,7 @@ export default function CodeWindowControls({ windowControlsTheme, previewMode }:
         <div
             className="flex items-center"
             style={{
-                gap: windowControlsTheme.gap,
+                gap: previewMode ? "6px" : windowControlsTheme.gap,
             }}
         >
             <div className="w-3 h-3" style={getControlStyles(0)}></div>
