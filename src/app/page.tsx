@@ -13,10 +13,11 @@ import { toast } from "sonner";
 import { motion } from "motion/react";
 import { githubDarkTheme, githubLightTheme } from "@/lib/themes/github-themes";
 import { useSystemThemeContext } from "@/contexts/ThemeContext";
+import { CodeWindowTheme } from "@/types/theme";
 
 export default function Home() {
     const [isExporting, setIsExporting] = useState(false);
-    const { effectiveTheme } = useSystemThemeContext();
+    const { initialTheme } = useSystemThemeContext();
     const [config, setConfig] = useState<ScreenshotConfig>({
         language: "javascript",
         theme: githubDarkTheme,
@@ -36,6 +37,23 @@ export default function Home() {
 
 console.log(fibonacci(10));`,
     });
+
+    // Set code window theme and background color based on initial system theme
+    useEffect(() => {
+        let theme: CodeWindowTheme, backgroundColor: string;
+        switch (initialTheme) {
+            case "light":
+                theme = githubLightTheme;
+                backgroundColor = "#d6d7e0";
+                break;
+            case "dark":
+                theme = githubDarkTheme;
+                backgroundColor = "#040c14";
+                break;
+        }
+        // Set config with new theme and background color
+        setConfig((prev) => ({ ...prev, theme: theme, backgroundColor }));
+    }, [initialTheme]);
 
     const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
         onSuccess: (data) => {
