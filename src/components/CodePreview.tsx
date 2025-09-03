@@ -11,11 +11,21 @@ interface CodePreviewProps {
 }
 
 export default function CodePreview({ config, setConfig, codeWindowRef: ref, exportMode = false }: CodePreviewProps) {
-    const backgroundStyle = {
-        backgroundColor: config.backgroundImage ? undefined : config.backgroundColor,
-        backgroundImage: config.backgroundImage ? `url(${config.backgroundImage})` : undefined,
+    const backgroundStyle: React.CSSProperties = {
         padding: config.backgroundPadding,
     };
+
+    switch (config.backgroundType) {
+        case "color":
+            backgroundStyle.backgroundColor = config.backgroundColor;
+            break;
+        case "image":
+            backgroundStyle.backgroundImage = `url(${config.backgroundImage})`;
+            break;
+        case "transparent":
+            backgroundStyle.backgroundColor = "transparent";
+            break;
+    }
 
     return (
         <div className="flex-1 flex items-center justify-center p-8">

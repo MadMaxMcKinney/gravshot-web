@@ -21,30 +21,6 @@ interface ToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function ToolAppearance({ config, setConfig, themes, ...props }: ToolbarProps) {
-    // Handle background settings for transparent/transparent adjacent concerns
-    useEffect(() => {
-        if (config.backgroundType === "transparent") {
-            setConfig({ ...config, backgroundImage: null, backgroundColor: "transparent" });
-        } else if (config.backgroundType === "color" && config.backgroundColor === "transparent") {
-            setConfig({ ...config, backgroundColor: "#7e7e7e" });
-        }
-    }, [config.backgroundType]);
-
-    // Image upload
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setConfig({
-                    ...config,
-                    backgroundImage: e.target?.result as string,
-                });
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
     return (
         <div {...props}>
             <div className="space-y-2">
@@ -63,7 +39,7 @@ export function ToolAppearance({ config, setConfig, themes, ...props }: ToolbarP
                         }
                     }}
                 >
-                    <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 min-h-fit">
+                    <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 h-fit">
                         <ThemePreview theme={config.theme} isSelected={true} />
                     </SelectTrigger>
                     <SelectContent className="gap-2">
@@ -122,7 +98,6 @@ export function ToolAppearance({ config, setConfig, themes, ...props }: ToolbarP
                     <div className="grid mt-2 grid-cols-2 items-center gap-4">
                         <Label htmlFor="bgImage">Upload image</Label>
                         <div className="flex justify-end gap-1">
-                            {/* <Input id="bgImage" placeholder="" type="file" accept="image/*" onChange={handleImageUpload} className="w-full" /> */}
                             <ImageUpload className="w-full" image={config.backgroundImage} onImageChange={(image) => setConfig({ ...config, backgroundImage: image })} />
                         </div>
                     </div>
