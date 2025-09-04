@@ -39,7 +39,7 @@ export function ToolAppearance({ config, setConfig, themes, ...props }: ToolbarP
                         }
                     }}
                 >
-                    <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 h-fit">
+                    <SelectTrigger id="theme" className="w-full p-1 pr-2 col-span-2 !h-fit">
                         <ThemePreview theme={config.theme} isSelected={true} />
                     </SelectTrigger>
                     <SelectContent className="gap-2">
