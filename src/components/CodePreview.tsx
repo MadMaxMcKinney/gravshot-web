@@ -17,13 +17,16 @@ export default function CodePreview({ config, setConfig, codeWindowRef: ref, exp
 
     switch (config.backgroundType) {
         case "color":
-            backgroundStyle.backgroundColor = config.backgroundColor;
+            backgroundStyle.background = config.backgroundColor;
             break;
         case "image":
-            backgroundStyle.backgroundImage = `url(${config.backgroundImage})`;
+            // When no image is set, use a checkerboard pattern
+            backgroundStyle.background = config.backgroundImage
+                ? `url(${config.backgroundImage})`
+                : `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill-rule='evenodd'%3E%3Crect x='0' y='0' width='10' height='10' fill='%23d0d0d0'/%3E%3Crect x='10' y='10' width='10' height='10' fill='%23d0d0d0'/%3E%3Crect x='10' y='0' width='10' height='10' fill='%23e8e8e8'/%3E%3Crect x='0' y='10' width='10' height='10' fill='%23e8e8e8'/%3E%3C/g%3E%3C/svg%3E")`;
             break;
         case "transparent":
-            backgroundStyle.backgroundColor = "transparent";
+            backgroundStyle.background = "transparent";
             break;
     }
 

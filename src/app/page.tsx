@@ -55,6 +55,8 @@ console.log(fibonacci(10));`,
         setConfig((prev) => ({ ...prev, theme: theme, backgroundColor }));
     }, [initialTheme]);
 
+    // Initialize image conversion, skipping fonts to work around an error in Firefox. I'm not using any web fonts so that's okay here, but it does mean each OS will render the monospace font differently.
+    // TODO: Add font selection as a user option and fix/find a different library.
     const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
         onSuccess: (data) => {
             const link = document.createElement("a");
@@ -70,6 +72,7 @@ console.log(fibonacci(10));`,
             toast.error("Export failed. Please try again.");
             setIsExporting(false); // Clean up after failed export
         },
+        skipFonts: true,
     });
 
     const handleExport = () => {
